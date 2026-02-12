@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Gerador de Calendário Mensal - Crie calendários personalizados com temas e imagens">
+    <meta property="og:title" content="Gerador de Calendário Mensal">
+    <meta property="og:description" content="Crie calendários mensais personalizados com temas e imagens">
+    <meta property="og:type" content="website">
+    <title>Gerador de Calendário Mensal</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1 class="header__title">Gerador de Calendário Mensal</h1>
+            <p class="header__subtitle">Crie calendários personalizados para impressão ou uso digital</p>
+        </div>
+    </header>
+
+    <main class="main">
+        <section class="config-section" id="configSection">
+            <div class="container">
+                <h2 class="section-title">Configuração do Calendário</h2>
+                
+                <form class="config-form" id="calendarConfigForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="month" class="form-label">Mês</label>
+                            <select id="month" name="month" class="form-select" required>
+                                <option value="">Selecione o mês</option>
+                                <option value="1">Janeiro</option>
+                                <option value="2">Fevereiro</option>
+                                <option value="3">Março</option>
+                                <option value="4">Abril</option>
+                                <option value="5">Maio</option>
+                                <option value="6">Junho</option>
+                                <option value="7">Julho</option>
+                                <option value="8">Agosto</option>
+                                <option value="9">Setembro</option>
+                                <option value="10">Outubro</option>
+                                <option value="11">Novembro</option>
+                                <option value="12">Dezembro</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="year" class="form-label">Ano</label>
+                            <input type="number" id="year" name="year" class="form-input" 
+                                   min="1900" max="2100" value="2024" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="daysInMonth" class="form-label">Dias no Mês</label>
+                            <input type="number" id="daysInMonth" name="daysInMonth" class="form-input" 
+                                   min="28" max="31" value="30" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="startDay" class="form-label">Dia da Semana Inicial</label>
+                            <select id="startDay" name="startDay" class="form-select" required>
+                                <option value="0">Domingo</option>
+                                <option value="1">Segunda-feira</option>
+                                <option value="2">Terça-feira</option>
+                                <option value="3">Quarta-feira</option>
+                                <option value="4">Quinta-feira</option>
+                                <option value="5">Sexta-feira</option>
+                                <option value="6">Sábado</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="colorPalette" class="form-label">Paleta de Cores</label>
+                        <select id="colorPalette" name="colorPalette" class="form-select">
+                            <option value="auto">Automático (baseado no mês)</option>
+                            <option value="spring">Primavera</option>
+                            <option value="summer">Verão</option>
+                            <option value="autumn">Outono</option>
+                            <option value="winter">Inverno</option>
+                            <option value="minimal">Minimalista</option>
+                            <option value="vibrant">Vibrante</option>
+                            <option value="corporate">Corporativo</option>
+                            <option value="custom">Personalizado</option>
+                        </select>
+                    </div>
+
+                    <div class="color-picker-group" id="customColorGroup" style="display: none;">
+                        <div class="form-group">
+                            <label for="primaryColor" class="form-label">Cor Primária</label>
+                            <input type="color" id="primaryColor" name="primaryColor" class="form-color" value="#2563eb">
+                        </div>
+                        <div class="form-group">
+                            <label for="secondaryColor" class="form-label">Cor Secundária</label>
+                            <input type="color" id="secondaryColor" name="secondaryColor" class="form-color" value="#64748b">
+                        </div>
+                        <div class="form-group">
+                            <label for="accentColor" class="form-label">Cor de Destaque</label>
+                            <input type="color" id="accentColor" name="accentColor" class="form-color" value="#f59e0b">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="backgroundImage" class="form-label">Imagem de Fundo (opcional)</label>
+                        <input type="file" id="backgroundImage" name="backgroundImage" class="form-file" accept="image/*">
+                        <small class="form-help">Envie uma imagem para usar como fundo do calendário</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="coverImage" class="form-label">Imagem de Capa (opcional)</label>
+                        <input type="file" id="coverImage" name="coverImage" class="form-file" accept="image/*">
+                        <small class="form-help">Envie uma imagem para a capa do calendário</small>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Gerar Calendário</button>
+                        <button type="button" class="btn btn-secondary" id="resetBtn">Redefinir</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <section class="calendar-section" id="calendarSection" style="display: none;">
+            <div class="container">
+                <div class="calendar-header" id="calendarHeader">
+                    <h2 class="calendar-title" id="calendarTitle"></h2>
+                    <button type="button" class="btn btn-outline" id="editBtn">Editar Configurações</button>
+                    <button type="button" class="btn btn-primary" id="printBtn">
+                        <span class="icon">🖨️</span> Imprimir
+                    </button>
+                </div>
+
+                <div class="calendar-container" id="calendarContainer">
+                    <div class="calendar-cover" id="calendarCover" style="display: none;">
+                        <img id="coverImageDisplay" alt="Imagem de capa" class="calendar-cover-image">
+                        <div class="calendar-cover-title">
+                            <h1 id="coverTitle"></h1>
+                            <p id="coverSubtitle"></p>
+                        </div>
+                    </div>
+
+                    <div class="calendar-wrapper" id="calendarWrapper">
+                        <div class="calendar-background" id="calendarBackground"></div>
+                        <div class="calendar-content">
+                            <div class="calendar-month-year">
+                                <h3 class="calendar-month" id="calendarMonth"></h3>
+                                <span class="calendar-year" id="calendarYear"></span>
+                            </div>
+                            <div class="calendar-grid" id="calendarGrid">
+                                <div class="calendar-weekdays">
+                                    <div class="weekday">Dom</div>
+                                    <div class="weekday">Seg</div>
+                                    <div class="weekday">Ter</div>
+                                    <div class="weekday">Qua</div>
+                                    <div class="weekday">Qui</div>
+                                    <div class="weekday">Sex</div>
+                                    <div class="weekday">Sáb</div>
+                                </div>
+                                <div class="calendar-days" id="calendarDays"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Gerador de Calendário Mensal. Desenvolvido com tecnologias web modernas.</p>
+        </div>
+    </footer>
+
+    <script src="js/calendar-generator.js"></script>
+</body>
+</html>
